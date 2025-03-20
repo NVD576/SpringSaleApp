@@ -4,7 +4,8 @@
  */
 package com.nvd.controllers;
 
-
+import com.nvd.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  *
  * @author admin
- */@Controller
- 
+ */
+@Controller
+
 public class IndexController {
-     @RequestMapping("/")
-    public String index(Model model){
-        
+
+    @Autowired
+    private CategoryService cateSer;
+
+    @RequestMapping("/")
+    public String index(Model model) {
+
         model.addAttribute("msg", "xin chao ou");
-        String[] cates={"Mobile", "Laptop"};
-        model.addAttribute("categories", cates);
+
+        model.addAttribute("categories", this.cateSer.getCates());
         return "index";
     }
 }
